@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agenda da Clínica</title>
+<meta name="description" content="Sistema de agenda para clínicas, com pacientes, consultas e confirmação de presença.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Agenda da Clínica</h1>
+      <p class="aviso-demo">Projeto de demonstração: use somente dados fictícios.</p>
+    </div>
+    <div id="areaUsuario" class="acoes" hidden>
+      <span id="emailUsuario" class="suave"></span>
+      <button type="button" id="btnSair">Sair</button>
+    </div>
+  </header>
+
+  <p id="carregando" class="suave">Carregando...</p>
+
+  <section id="telaLogin" aria-labelledby="tLogin" hidden>
+    <h2 id="tLogin">Entrar</h2>
+    <form id="formLogin" class="grade" novalidate>
+      <label>E-mail <input type="email" id="loginEmail" autocomplete="username" required></label>
+      <label>Senha <input type="password" id="loginSenha" autocomplete="current-password" minlength="6" required></label>
+      <button type="submit" class="principal">Entrar</button>
+      <button type="button" id="btnCriarConta">Criar conta</button>
+    </form>
+    <p id="msgLogin" class="msg" role="status"></p>
+  </section>
+
+  <div id="telaApp" hidden>
+    <nav class="abas" aria-label="Seções">
+      <button type="button" id="abaAgenda" aria-pressed="true">Agenda</button>
+      <button type="button" id="abaPacientes" aria-pressed="false">Pacientes</button>
+    </nav>
+
+    <div id="secAgenda">
+      <section aria-labelledby="tConsulta">
+        <h2 id="tConsulta">Nova consulta</h2>
+        <form id="formConsulta" class="grade" novalidate>
+          <label class="largo">Paciente <select id="consultaPaciente"></select></label>
+          <label>Data <input type="date" id="consultaData" required></label>
+          <label>Horário <select id="consultaHora"></select></label>
+          <label>Situação <select id="consultaStatus"></select></label>
+          <button type="submit" class="principal" id="btnSalvarConsulta">Marcar consulta</button>
+          <button type="button" id="btnCancelarConsulta" hidden>Cancelar edição</button>
+        </form>
+        <p id="msgConsulta" class="msg" role="status"></p>
+      </section>
+
+      <section aria-labelledby="tDia">
+        <h2 id="tDia">Consultas do dia</h2>
+        <div class="grade"><label>Data <input type="date" id="filtroData"></label></div>
+        <div class="rolagem">
+          <table>
+            <thead><tr><th>Horário</th><th>Paciente</th><th>Telefone</th><th>Situação</th><th>Ações</th></tr></thead>
+            <tbody id="tabelaConsultas"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div id="secPacientes" hidden>
+      <section aria-labelledby="tPaciente">
+        <h2 id="tPaciente">Novo paciente</h2>
+        <form id="formPaciente" class="grade" novalidate>
+          <label class="largo">Nome <input type="text" id="pacienteNome" maxlength="80" required></label>
+          <label>Telefone <input type="tel" id="pacienteTelefone" maxlength="20"></label>
+          <label class="largo">Observação <input type="text" id="pacienteObservacao" maxlength="200"></label>
+          <button type="submit" class="principal" id="btnSalvarPaciente">Cadastrar</button>
+          <button type="button" id="btnCancelarPaciente" hidden>Cancelar edição</button>
+        </form>
+        <p id="msgPaciente" class="msg" role="status"></p>
+      </section>
+
+      <section aria-labelledby="tLista">
+        <h2 id="tLista">Pacientes</h2>
+        <div class="grade"><label>Buscar pelo nome <input type="search" id="buscaPaciente"></label></div>
+        <div class="rolagem">
+          <table>
+            <thead><tr><th>Nome</th><th>Telefone</th><th>Observação</th><th>Ações</th></tr></thead>
+            <tbody id="tabelaPacientes"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<dialog id="dialogo">
+  <p id="dialogoTexto"></p>
+  <div class="acoes">
+    <button type="button" id="dialogoNao">Cancelar</button>
+    <button type="button" id="dialogoSim" class="principal">Confirmar</button>
+  </div>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+:root { --fundo: #f7f5f0; --painel: #fffdf9; --texto: #22303c; --suave: #5b6b78; --destaque: #1f6f78; --linha: #d9d5ca; --erro: #b5473c; --ok: #2e7d4f; }
+@media (prefers-color-scheme: dark) {
+  :root { --fundo: #15202a; --painel: #1c2a36; --texto: #e8ecef; --suave: #a3b1bc; --destaque: #6fc7cf; --linha: #2f3f4c; --erro: #f08a7e; --ok: #6fcf97; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.5 "Segoe UI", system-ui, sans-serif; }
+main { max-width: 960px; margin: 0 auto; padding: 32px 16px 56px; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+h1 { margin: 0; font-size: 2rem; line-height: 1.2; }
+h2 { margin: 0 0 14px; font-size: 1.2rem; }
+p { margin: 0; }
+.suave, .aviso-demo { color: var(--suave); }
+.acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+section { margin-bottom: 18px; padding: 20px; background: var(--painel); border: 1px solid var(--linha); border-radius: 10px; }
+.grade { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
+label { display: flex; flex: 1 1 160px; flex-direction: column; gap: 4px; font-size: .9rem; color: var(--suave); }
+label.largo { flex: 2 1 260px; }
+input, select, button { min-height: 40px; padding: 8px 10px; font: inherit; color: var(--texto); background: var(--fundo); border: 1px solid var(--linha); border-radius: 6px; }
+input, select { width: 100%; }
+button { cursor: pointer; }
+button:hover { border-color: var(--destaque); }
+button:disabled { cursor: wait; opacity: .65; }
+:focus-visible { outline: 2px solid var(--destaque); outline-offset: 1px; }
+button.principal, .abas button[aria-pressed="true"] { color: var(--fundo); background: var(--destaque); border-color: var(--destaque); font-weight: 600; }
+button.perigo { color: var(--erro); }
+.abas { display: flex; gap: 8px; margin-bottom: 14px; }
+.msg { margin-top: 8px; font-size: .92rem; color: var(--ok); }
+.msg.erro { color: var(--erro); }
+.msg:empty { margin: 0; }
+.rolagem { margin-top: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--linha); white-space: nowrap; }
+th { color: var(--suave); font-weight: 600; }
+td select { width: auto; min-height: 34px; padding: 4px 6px; }
+td button { min-height: 34px; padding: 3px 8px; font-size: .86rem; }
+dialog { max-width: 420px; padding: 20px; color: var(--texto); background: var(--painel); border: 1px solid var(--linha); border-radius: 10px; }
+dialog::backdrop { background: rgb(0 0 0 / .45); }
+dialog .acoes { justify-content: flex-end; margin-top: 16px; }
+@media (max-width: 520px) {
+  main { padding-top: 20px; }
+  section { padding: 14px; }
+  .grade button { width: 100%; }
+}
