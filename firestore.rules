@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function dono(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function pacienteValido() {
+      let dados = request.resource.data;
+      return dados.keys().hasOnly(['nome', 'telefone', 'observacao'])
+        && dados.nome is string && dados.nome.size() > 0 && dados.nome.size() <= 80
+        && dados.telefone is string && dados.telefone.size() <= 20
+        && dados.observacao is string && dados.observacao.size() <= 200;
+    }
+
+    function consultaValida(id) {
+      let dados = request.resource.data;
+      return dados.keys().hasOnly(['pacienteId', 'data', 'hora', 'status'])
+        && dados.pacienteId is string && dados.pacienteId.size() > 0
+        && dados.data is string && dados.data.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && dados.hora is string && dados.hora.matches('^[0-9]{2}:[0-9]{2}$')
+        && dados.status in ['agendada', 'confirmada', 'realizada', 'faltou', 'cancelada']
+        && id == dados.data + '_' + dados.hora;
+    }
+
+    match /usuarios/{uid}/pacientes/{id} {
+      allow read, delete: if dono(uid);
+      allow create, update: if dono(uid) && pacienteValido();
+    }
+
+    match /usuarios/{uid}/consultas/{id} {
+      allow read, delete: if dono(uid);
+      allow create, update: if dono(uid) && consultaValida(id);
+    }
+  }
+}
